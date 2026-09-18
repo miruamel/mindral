@@ -1,0 +1,19 @@
+#!/usr/bin/env sh
+set -eu
+
+SDK_ROOT=${ANDROID_SDK_ROOT:-${ANDROID_HOME:-/root/android-sdk}}
+AAPT2_BIN=${AAPT2_BIN:-"$SDK_ROOT/build-tools/34.0.0/aapt2"}
+
+case "$(uname -m)" in
+  x86_64|amd64)
+    exec "$AAPT2_BIN" "$@"
+    ;;
+  aarch64|arm64)
+    export QEMU_LD_PREFIX=/usr/x86_64-linux-gnu
+    exec qemu-x86_64 "$AAPT2_BIN" "$@"
+    ;;
+  *)
+    echo "Unsupported host architecture: $(uname -m)" >&2
+    exit 127
+    ;;
+esac
