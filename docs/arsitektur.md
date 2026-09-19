@@ -17,10 +17,10 @@
 - Modul Java: `core` untuk domain/engine, `android` untuk launcher dan packaging.
 - Package source/namespace: `com.mindral.game`; `applicationId` tetap `com.mindustrial.game` agar upgrade dan data instalasi lama tidak putus.
 - libGDX dipin ke `1.14.2`; native `arm64-v8a` berasal dari dependency `gdx-platform:1.14.2:natives-arm64-v8a`, bukan salinan manual di `jniLibs`.
-- Toolchain build: Gradle `8.9`, Android Gradle Plugin `8.7.3`, `compileSdk`/`targetSdk` 35, `minSdk` 23.
+- Toolchain build: Gradle `9.7.1`, Android Gradle Plugin `9.4.1`, `compileSdk` 37, `targetSdk` 35, `minSdk` 23.
 - Checksum artifact dipin via `gradle/verification-metadata.xml`.
 - Native `libgdx.so` dihasilkan dari artifact `gdx-platform` lewat task `copyArm64Natives` ke `build/generated/jniLibs/arm64-v8a` dan ikut masuk APK.
-- Host `arm64` memakai wrapper `gradle/aapt2` berbasis `qemu-x86_64`; paket pendukung: `qemu-user`, `libc6-amd64-cross`, `libgcc-s1-amd64-cross`.
+- Host `arm64` memakai wrapper `gradle/aapt2` berbasis `qemu-x86_64` dan `build-tools` 36.0.0; paket pendukung: `qemu-user`, `libc6-amd64-cross`, `libgcc-s1-amd64-cross`.
 
 ## Hipotesis kerja
 
@@ -51,10 +51,9 @@
 
 ### Kebijakan Versi libGDX
 
-- resolve latest stable saat build pertama;
-- pin versi dan checksum hasil resolve;
-- jangan menganggap latest stable sebagai versi tetap;
-- adapter proyek hanya memakai API publik; source libGDX tidak dimodifikasi.
+- Pin versi stabil dan checksum hasil resolve;
+- Jangan menganggap latest stable sebagai versi tetap;
+- Adapter proyek hanya memakai API publik; source libGDX tidak dimodifikasi.
 
 ### Domain Simulation
 
