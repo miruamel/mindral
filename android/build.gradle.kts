@@ -43,7 +43,7 @@ dependencies {
     }
     implementation("com.badlogicgames.gdx:gdx-platform:1.14.2:natives-arm64-v8a")
     add(arm64Natives.name, "com.badlogicgames.gdx:gdx-platform:1.14.2:natives-arm64-v8a")
-    implementation("androidx.core:core:1.15.0")
+    implementation("androidx.core:core:1.19.0")
 }
 
 val copyArm64Natives by tasks.registering(Copy::class) {
